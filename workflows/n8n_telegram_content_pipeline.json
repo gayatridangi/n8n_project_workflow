@@ -1,0 +1,1255 @@
+
+{
+  "name": "n8n_social_media_Content_generation_pipeline",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "id": "2560ee3c-b9fc-4ec9-99c9-9e1f401f6db8",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        0,
+        256
+      ],
+      "retryOnFail": true,
+      "webhookId": "7b7f1082-09cc-46f5-84d6-ae5d120492bd",
+      "credentials": {
+        "telegramApi": {
+          "id": "w2zk5NYrFdf4YkLk",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1P6ed9y6YVXBzOrFYoP8E_stORreYXk-_Ipm0XLG-eEg",
+          "mode": "list",
+          "cachedResultName": "Social Media Calendar",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1P6ed9y6YVXBzOrFYoP8E_stORreYXk-_Ipm0XLG-eEg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Calendar",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1P6ed9y6YVXBzOrFYoP8E_stORreYXk-_Ipm0XLG-eEg/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Content_ID",
+              "lookupValue": "={{ $json.Content_ID }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2c932780-ef1b-45dd-8ebe-3eca0c01024f",
+      "name": "Get row(s) in sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        624,
+        80
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "wLYVzKWHXyAe1RTc",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1P6ed9y6YVXBzOrFYoP8E_stORreYXk-_Ipm0XLG-eEg",
+          "mode": "list",
+          "cachedResultName": "Social Media Calendar",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1P6ed9y6YVXBzOrFYoP8E_stORreYXk-_Ipm0XLG-eEg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Calendar",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1P6ed9y6YVXBzOrFYoP8E_stORreYXk-_Ipm0XLG-eEg/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Content_ID": "={{ $(\"Analyzer\").item.json.Content_ID }}",
+            "Approval_Status": "={{ $(\"Analyzer\").item.json.Approval_Status }}",
+            "Approved_At": "={{ $now.format('yyyy-MM-dd HH:mm:ss') }}"
+          },
+          "matchingColumns": [
+            "Content_ID"
+          ],
+          "schema": [
+            {
+              "id": "Content_ID",
+              "displayName": "Content_ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Content_Idea",
+              "displayName": "Content_Idea",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Target_Audience",
+              "displayName": "Target_Audience",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Brand_Tone",
+              "displayName": "Brand_Tone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "LinkedIn_Post",
+              "displayName": "LinkedIn_Post",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "X_Thread",
+              "displayName": "X_Thread",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Instagram_Caption",
+              "displayName": "Instagram_Caption",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Approval_Status",
+              "displayName": "Approval_Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Approved_At",
+              "displayName": "Approved_At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Scheduled_Date",
+              "displayName": "Scheduled_Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "817d3281-6ba1-4138-908a-00ceb9a26559",
+      "name": "Update row in sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        784,
+        80
+      ],
+      "retryOnFail": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "wLYVzKWHXyAe1RTc",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are an expert social media content strategist.\n\nUSER BRIEF:\n{{ $json.message.text }}\n\nTASK:\n1. Extract the main Content Idea, Target Audience, and Brand Tone from the user brief.\n2. Generate a 7-day ASCENDING VALUE LADDER social media campaign based on the main idea.\n3. All content Generated should be different for each day, from day 1 to day 7.\n\n\nCRITICAL ANTI-REPETITION RULE:\n- NEVER copy-paste or repeat text across days.\n- EVERY SINGLE DAY MUST HAVE 100% DIFFERENT WRITTEN CONTENT, HOOKS, AND EXAMPLES.\n- Follow the EXACT daily focus assigned below for each day.\n\nDAILY CONTENT PLAN (DO NOT DEVIATE):\n- DAY 1 (The Core Concept & Mindset Shift): Introduce why this topic matters right now and the foundational change.\n- DAY 2 (Practical Step-by-Step Execution): Give a concrete \"How-To\" guide with immediate, actionable steps.\n- DAY 3 (Common Mistakes & Misconceptions): Detail 3 major errors people make regarding this idea and how to avoid them.\n- DAY 4 (Advanced Pro Tactics & Best Tools): Share pro-level techniques, specific tools, or expert workflows.\n- DAY 5 (Debunking Myths & Alternative Views): Present a counter-intuitive perspective or bust a popular industry myth.\n- DAY 6 (Future Outlook & Trending News): Discuss current trends, upcoming shifts, and future predictions.\n- DAY 7 (Weekly Roadmap & Strong Action CTA): Summarize key takeaways into a quick cheatsheet with a strong final call to action.\n\nOUTPUT FORMATTING RULES:\n- Generate EXACTLY 7 sections: DAY 1 through DAY 7.\n- Do NOT include markdown tables, JSON, intro/outro text, or horizontal dividing lines (---).\n- Output complete, unique drafts for LinkedIn, X Thread (1/4 to 4/4), and Instagram Caption for all 7 days.\n\nUse this EXACT layout for all 7 days but generate different content for all 7 days. No two day content should be same text:\n\nDAY 1\n\nLinkedIn Post:\n[Write complete, unique LinkedIn post about Day 1 Core Concept]\n\nX Thread:\n1/4 [Hook post]\n2/4 [Concept detail]\n3/4 [Key takeaway]\n4/4 [Action CTA]\n\nInstagram Caption:\n[Write complete, unique Instagram caption with emojis and hashtags]\n\nDAY 2\n\nLinkedIn Post:\n[Write complete, unique LinkedIn post about Day 2 Step-by-step How-To]\n\nX Thread:\n1/4 [Post 1]\n2/4 [Post 2]\n3/4 [Post 3]\n4/4 [Post 4]\n\nInstagram Caption:\n[Write complete, unique Instagram caption for Day 2]\n\nDAY 3\n\nLinkedIn Post:\n[Write complete, unique LinkedIn post about Day 3 Mistakes to avoid]\n\nX Thread:\n1/4 [Post 1]\n2/4 [Post 2]\n3/4 [Post 3]\n4/4 [Post 4]\n\nInstagram Caption:\n[Write complete, unique Instagram caption for Day 3]\n\nDAY 4\n\nLinkedIn Post:\n[Write complete, unique LinkedIn post about Day 4 Pro Tactics & Tools]\n\nX Thread:\n1/4 [Post 1]\n2/4 [Post 2]\n3/4 [Post 3]\n4/4 [Post 4]\n\nInstagram Caption:\n[Write complete, unique Instagram caption for Day 4]\n\nDAY 5\n\nLinkedIn Post:\n[Write complete, unique LinkedIn post about Day 5 Myths & Perspectives]\n\nX Thread:\n1/4 [Post 1]\n2/4 [Post 2]\n3/4 [Post 3]\n4/4 [Post 4]\n\nInstagram Caption:\n[Write complete, unique Instagram caption for Day 5]\n\nDAY 6\n\nLinkedIn Post:\n[Write complete, unique LinkedIn post about Day 6 Future Outlook & Trends]\n\nX Thread:\n1/4 [Post 1]\n2/4 [Post 2]\n3/4 [Post 3]\n4/4 [Post 4]\n\nInstagram Caption:\n[Write complete, unique Instagram caption for Day 6]\n\nDAY 7\n\nLinkedIn Post:\n[Write complete, unique LinkedIn post about Day 7 Roadmap & Summary]\n\nX Thread:\n1/4 [Post 1]\n2/4 [Post 2]\n3/4 [Post 3]\n4/4 [Post 4]\n\nInstagram Caption:\n[Write complete, unique Instagram caption for Day 7]",
+        "options": {
+          "systemMessage": "You are a professional social media content strategist. Always return three clearly labelled drafts: LinkedIn, X (Twitter) and Instagram."
+        }
+      },
+      "id": "03dbacd2-f1b9-46cf-bf93-84a8584178c4",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        288,
+        496
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json;\n\n// 1. AI Agent output\nconst output = String(\n  data.output ?? data.text ?? data.response ?? \"\"\n).trim();\n\nif (!output) {\n  throw new Error(\"AI Agent output empty hai. Input check karein.\");\n}\n\n// 2. Original Telegram brief\nconst brief = String(\n  $(\"Telegram Trigger\").first().json.message?.text ?? \"\"\n);\n\n// 3. Brief fields extraction\nfunction getBriefField(labels) {\n  for (const label of labels) {\n    const regex = new RegExp(\n      \"^\\\\s*\" + label + \"\\\\s*:\\\\s*(.+?)\\\\s*$\",\n      \"im\"\n    );\n\n    const match = brief.match(regex);\n    if (match) return match[1].trim();\n  }\n\n  return \"\";\n}\n\nconst idea =\n  getBriefField([\"Content Idea\", \"Idea\", \"Topic\"]) ||\n  \"Not provided\";\n\nconst audience =\n  getBriefField([\"Target Audience\", \"Audience\", \"Target\"]) ||\n  \"Not provided\";\n\nconst tone =\n  getBriefField([\"Brand Tone\", \"Tone\", \"Brand Voice\"]) ||\n  \"Not provided\";\n\n// 4. Normalize AI output text\nconst text = output.replace(/\\\\n/g, \"\\n\");\n\n// 5. Robust Regex for finding DAY 1 to DAY 7 (Supports **, ##, colons, spaces)\nconst dayRegex = /(?:^|\\n)\\s*(?:#+|\\*\\*|\\*)?\\s*DAY\\s+([1-7])\\b[^\\n]*/gim;\n\nconst headings = [];\nlet match;\n\nwhile ((match = dayRegex.exec(text)) !== null) {\n  headings.push({\n    day: Number(match[1]),\n    start: match.index,\n    end: dayRegex.lastIndex\n  });\n}\n\n// Keep first occurrence of each day\nconst uniqueDays = [];\nconst seenDays = new Set();\n\nfor (const heading of headings) {\n  if (!seenDays.has(heading.day)) {\n    seenDays.add(heading.day);\n    uniqueDays.push(heading);\n  }\n}\n\nuniqueDays.sort((a, b) => a.day - b.day);\n\nif (\n  uniqueDays.length !== 7 ||\n  ![1, 2, 3, 4, 5, 6, 7].every(day => seenDays.has(day))\n) {\n  throw new Error(\n    `Exactly DAY 1 to DAY 7 required. Found ${uniqueDays.length} unique days.`\n  );\n}\n\n// 6. Extract platform sections\nfunction extractSection(section, platform) {\n  const patterns = {\n    linkedin:\n      /^\\s*(?:\\*\\*|#+)?\\s*LinkedIn(?:\\s+Post)?\\s*:?\\s*(?:\\*\\*)?\\s*/im,\n\n    x:\n      /^\\s*(?:\\*\\*|#+)?\\s*(?:X|Twitter)(?:\\s+Thread)?\\s*:?\\s*(?:\\*\\*)?\\s*/im,\n\n    instagram:\n      /^\\s*(?:\\*\\*|#+)?\\s*Instagram(?:\\s+Caption)?\\s*:?\\s*(?:\\*\\*)?\\s*/im\n  };\n\n  const found = patterns[platform].exec(section);\n  if (!found) return \"\";\n\n  const start = found.index + found[0].length;\n  const lines = section.slice(start).split(\"\\n\");\n  const contentLines = [];\n\n  const nextHeading =\n    /^\\s*(?:\\*\\*|#+)?\\s*(?:LinkedIn(?:\\s+Post)?|(?:X|Twitter)(?:\\s+Thread)?|Instagram(?:\\s+Caption)?)\\s*:?\\s*(?:\\*\\*)?\\s*$/i;\n\n  for (const line of lines) {\n    if (nextHeading.test(line)) break;\n    contentLines.push(line);\n  }\n\n  return contentLines\n    .join(\"\\n\")\n    .trim()\n    .replace(/\\n{3,}/g, \"\\n\\n\");\n}\n\n// 7. Create 7 rows for Google Sheets\nconst executionId = String($execution.id);\n\nreturn uniqueDays.map(({ day }, index) => {\n  const currentIndex = uniqueDays.findIndex(item => item.day === day);\n  const heading = uniqueDays[currentIndex];\n  const next = uniqueDays[currentIndex + 1];\n\n  const section = text.slice(\n    heading.end,\n    next ? next.start : text.length\n  );\n\n  const linkedin = extractSection(section, \"linkedin\");\n  const xThread = extractSection(section, \"x\");\n  const instagram = extractSection(section, \"instagram\");\n\n  if (!linkedin || !xThread || !instagram) {\n    throw new Error(\n      `DAY ${day}: LinkedIn, X Thread, ya Instagram content missing hai.`\n    );\n  }\n\n  return {\n    json: {\n      Content_ID: `${executionId}-${day}`,\n      Content_Idea: idea,\n      Target_Audience: audience,\n      Brand_Tone: tone,\n      LinkedIn_Post: linkedin,\n      X_Thread: xThread,\n      Instagram_Caption: instagram,\n      Approval_Status: \"PENDING\",\n      Scheduled_Date: \"\",\n      Approved_At: \"\"\n    }\n  };\n});"
+      },
+      "id": "12d7041a-d311-4554-9b95-ef58f0b15e3e",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        688,
+        592
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "={{\n  (() => {\n    const d = $json;\n\n    // Day Extract karne ke liye (Content_ID = \"529-1\", \"529-2\" etc.)\n    const dayNumber = String(d.Content_ID || '').split('-')[1] || '';\n    const dayHeader = dayNumber ? `📅 DAY ${dayNumber}\\n\\n` : '';\n\n    const linkedin =\n      d.LinkedIn_Post ?? d.linkedin_post ??\n      d['LinkedIn Post'] ?? d.linkedinPost;\n\n    const xthread =\n      d.X_Thread ?? d.x_thread ??\n      d['X Thread'] ?? d.xThread;\n\n    const instagram =\n      d.Instagram_Caption ?? d.instagram_caption ??\n      d['Instagram Caption'] ?? d.instagramCaption;\n\n    return (\n      dayHeader +\n      'LinkedIn Post:\\n\\n' + (linkedin ?? 'Content field not found') +\n      '\\n\\n--------------------\\n\\n' +\n      'X Thread:\\n\\n' + (xthread ?? 'Content field not found') +\n      '\\n\\n--------------------\\n\\n' +\n      'Instagram Caption:\\n\\n' + (instagram ?? 'Content field not found')\n    );\n  })()\n}}",
+        "additionalFields": {}
+      },
+      "id": "139df76f-ae88-4bc1-8f86-37b51d50de72",
+      "name": "Send a text message2",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        848,
+        592
+      ],
+      "webhookId": "e4735732-a427-4cff-809f-c27175593d69",
+      "credentials": {
+        "telegramApi": {
+          "id": "w2zk5NYrFdf4YkLk",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "={{ \n  'Please review the sent draft.\\n\\n' +\n  'Reply APPROVE ' + $('Code').item.json.Content_ID + ' to approve the content.\\n\\n' +\n  'Reply REJECT ' + $('Code').item.json.Content_ID + ' to reject the content and provide a suggestion, if any.\\n\\n' +\n  'Content ID: ' + $('Code').item.json.Content_ID\n}}\n",
+        "additionalFields": {}
+      },
+      "id": "0efa231d-27fc-4ef9-866e-83def0baddde",
+      "name": "Send a text message3",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1040,
+        592
+      ],
+      "webhookId": "c0f9a812-059d-4ec9-873b-d995984c0a4e",
+      "credentials": {
+        "telegramApi": {
+          "id": "w2zk5NYrFdf4YkLk",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "=✅ **Content approved!**\n\nContent ID: {{ $('Analyzer').item.json.content_id }}\n\nWhen would you like to schedule this content?\n\nPlease reply in this exact format:\n\n`SCHEDULE {{ $('Analyzer').item.json.content_id }} | YYYY-MM-DD HH:mm`\n\n**Date format:** `YYYY-MM-DD`\n\n**Time format:** 24-hour clock (`HH:mm`)\n\n**Example:** `SCHEDULE 357-5 | 2026-10-20 18:30` means 6:30 PM India time.\n\nYour content schedule details will be added to Social Media Content Pipeline and Google Calendar.",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1168,
+        0
+      ],
+      "id": "8a0183e5-3102-4323-b224-a74714d07025",
+      "name": "Send a text message1",
+      "webhookId": "0e482e29-d973-4243-9c2b-092ede1877ae",
+      "credentials": {
+        "telegramApi": {
+          "id": "w2zk5NYrFdf4YkLk",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "=❌ **Content rejected!**\n\nContent ID: {{ $('Analyzer').item.json.content_id }}\n\nThank you for your feedback!\n\nIf you have any suggestions or specific changes you'd like to see in the post, please share them with me.\n\nPlease let me know how you'd like to proceed. 😊",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1168,
+        160
+      ],
+      "id": "2f543aaf-17bf-44e8-a66f-58db98462c4d",
+      "name": "Send a text message",
+      "webhookId": "0bb25160-0131-4cc6-b712-60a237075679",
+      "credentials": {
+        "telegramApi": {
+          "id": "w2zk5NYrFdf4YkLk",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json;\n\n// Telegram message extract\nconst message = String(\n  data.message?.text ??\n  data.text ??\n  \"\"\n).trim();\n\n// Chat ID extract\nconst chat_id =\n  data.message?.chat?.id ??\n  data.chat?.id ??\n  data.chat_id;\n\n// Validate message\nif (!message) {\n  throw new Error(\"Telegram message nahi mila.\");\n}\n\nif (chat_id === undefined || chat_id === null) {\n  throw new Error(\"Chat ID nahi mili.\");\n}\n\n// Regex to extract APPROVE/REJECT and Content ID (e.g. 363-7)\nconst match = message.match(/(APPROVE|REJECT)\\s+(\\d+-\\d+)/i);\n\nif (!match) {\n  throw new Error(\n    \"Invalid command. Telegram par APPROVE 46-1 ya REJECT 46-1 bhejo.\"\n  );\n}\n\nconst action = match[1].toUpperCase();\nconst contentId = match[2];\n\nconst approvalStatus =\n  action === \"APPROVE\" ? \"Approved\" : \"Rejected\";\n\n// Agar Approve ho toh Kolkata timestamp, agar Reject ho toh Blank String \"\"\nconst approvedAt =\n  action === \"APPROVE\"\n    ? new Date().toLocaleString(\"sv-SE\", {\n        timeZone: \"Asia/Kolkata\"\n      }).replace(\" \", \"T\")\n    : \"\";\n\n// Agar Reject ho toh Scheduled Date ko bhi blank string \"\" kar do\nconst scheduledDate = action === \"REJECT\" ? \"\" : undefined;\n\n// Output matching your exact Google Sheets columns and workflow needs\nreturn [\n  {\n    json: {\n      action: action,\n      content_id: contentId,            // Telegram nodes ke liye\n      Content_ID: contentId,            // Google Sheet column match\n      Approval_Status: approvalStatus,  // Google Sheet column match\n      chat_id: chat_id,\n      Approved_At: approvedAt,          // Google Sheet column match (Rejection par blank)\n      Scheduled_Date: scheduledDate      // Google Sheet column match (Rejection par blank)\n    }\n  }\n];"
+      },
+      "id": "b6f80fdc-e086-4dcb-be79-e41c22c0e5d1",
+      "name": "Analyzer",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        464,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "133dd5f9-f482-4759-b4a3-44829afd5978",
+              "leftValue": "={{ $('Analyzer').item.json.action }}",
+              "rightValue": "APPROVE",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        944,
+        80
+      ],
+      "id": "d45abe24-d052-47eb-994e-8d703f6c58b6",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "=⚠️ Content Generation Failed\n\nSorry, I couldn't generate your social media content because the AI service encountered an error.\n\nYour AI service is temporarily unavailable or has reached its usage limit.\n\n📝 **Your Original Brief Details:**\n• **Idea:** {{ ($('Telegram Trigger').first().json.message.text.match(/(?:Content Idea|Idea|Topic)\\s*:\\s*(.+)/i) || [])[1]?.trim() || \"Not provided\" }}\n• **Audience:** {{ ($('Telegram Trigger').first().json.message.text.match(/(?:Target Audience|Audience|Target)\\s*:\\s*(.+)/i) || [])[1]?.trim() || \"Not provided\" }}\n• **Tone:** {{ ($('Telegram Trigger').first().json.message.text.match(/(?:Brand Tone|Tone|Voice)\\s*:\\s*(.+)/i) || [])[1]?.trim() || \"Not provided\" }}\n\nPlease try again later.",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        544,
+        672
+      ],
+      "id": "5c713f7e-ed3a-47bb-8814-96cc15ff2a3d",
+      "name": "Send a text message4",
+      "webhookId": "d210cf05-fe3e-4b99-99de-0c5609f8a35f",
+      "credentials": {
+        "telegramApi": {
+          "id": "w2zk5NYrFdf4YkLk",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1P6ed9y6YVXBzOrFYoP8E_stORreYXk-_Ipm0XLG-eEg",
+          "mode": "list",
+          "cachedResultName": "Social Media Calendar",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1P6ed9y6YVXBzOrFYoP8E_stORreYXk-_Ipm0XLG-eEg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Calendar",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1P6ed9y6YVXBzOrFYoP8E_stORreYXk-_Ipm0XLG-eEg/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Content_ID": "={{ $json.Content_ID }}",
+            "Approval_Status": "={{ $json.Approval_Status }}",
+            "Approved_At": "={{ $json.Approved_At }}",
+            "Scheduled_Date": "={{ $json.Scheduled_Date }}"
+          },
+          "matchingColumns": [
+            "Content_ID"
+          ],
+          "schema": [
+            {
+              "id": "Content_ID",
+              "displayName": "Content_ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Content_Idea",
+              "displayName": "Content_Idea",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Target_Audience",
+              "displayName": "Target_Audience",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Brand_Tone",
+              "displayName": "Brand_Tone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "LinkedIn_Post",
+              "displayName": "LinkedIn_Post",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "X_Thread",
+              "displayName": "X_Thread",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Instagram_Caption",
+              "displayName": "Instagram_Caption",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Approval_Status",
+              "displayName": "Approval_Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Scheduled_Date",
+              "displayName": "Scheduled_Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Approved_At",
+              "displayName": "Approved_At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1200,
+        304
+      ],
+      "id": "02f597a5-5dbd-4f8b-99be-3b60a7aec91a",
+      "name": "Update row in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "wLYVzKWHXyAe1RTc",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Safely input data get karein\nconst inputItem = $input.first()?.json || {};\n\n// Text extract karein\nconst message = String(\n  inputItem.message?.text ??\n  inputItem.body?.message?.text ??\n  inputItem.text ??\n  inputItem.body?.text ??\n  inputItem.Content_ID ??\n  inputItem.content_id ??\n  \"\"\n).trim();\n\n// Chat ID extract karein\nconst chat_id =\n  inputItem.message?.chat?.id ??\n  inputItem.body?.message?.chat?.id ??\n  inputItem.chat?.id ??\n  inputItem.body?.chat?.id ??\n  inputItem.chat_id ??\n  null;\n\n// Extract Content ID (e.g. 105-1)\nlet contentId = \"\";\nconst match = message.match(/^REJECT\\s+(\\d+-\\d+)$/i);\n\nif (match) {\n  contentId = match[1];\n} else {\n  const idMatch = message.match(/(\\d+-\\d+)/);\n  contentId = idMatch ? idMatch[1] : message;\n}\n\nif (!contentId) {\n  throw new Error(\"Content ID nahi mil pa rahi hai.\");\n}\n\nreturn [\n  {\n    json: {\n      Content_ID: contentId,\n      Approval_Status: \"Rejected\",\n      Approved_At: \" \",      // Single space -> Sheet ka purana time permanently erase kar dega\n      Scheduled_Date: \" \",   // Single space -> Sheet ki purani date permanently erase kar dega\n      chat_id: chat_id\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1040,
+        304
+      ],
+      "id": "fb75a0e1-f5ef-42a9-80e1-54734465093a",
+      "name": "Schedule_Analyzer"
+    },
+    {
+      "parameters": {
+        "options": {
+          "temperature": 1
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        288,
+        688
+      ],
+      "id": "cb646fa4-79c5-4806-85ed-3de8eefe52d9",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "aIuYWuE6ElbBpZLl",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Telegram Trigger').first().json.message?.text?.toLowerCase() || '' }}",
+                    "rightValue": "approve",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    },
+                    "id": "82b8a4d1-087b-4497-abc9-2ec45272ebbd"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "be3da333-e5ee-4b20-9e3e-b0de9a581d1f",
+                    "leftValue": "={{ $('Telegram Trigger').first().json.message?.text?.toLowerCase() || '' }}",
+                    "rightValue": "reject",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "7792ac03-dbf9-4b86-96e6-8a272e3cc462",
+                    "leftValue": "={{ $('Telegram Trigger').first().json.message?.text?.toLowerCase() || '' }}",
+                    "rightValue": "schedule",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        192,
+        224
+      ],
+      "id": "2744f037-c4cd-4a99-916f-32d9865e91af",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1P6ed9y6YVXBzOrFYoP8E_stORreYXk-_Ipm0XLG-eEg",
+          "mode": "list",
+          "cachedResultName": "Social Media Calendar",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1P6ed9y6YVXBzOrFYoP8E_stORreYXk-_Ipm0XLG-eEg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Calendar",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1P6ed9y6YVXBzOrFYoP8E_stORreYXk-_Ipm0XLG-eEg/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Content_ID": "={{ $json.Content_ID }}",
+            "Scheduled_Date": "={{ $json.Scheduled_Date }}"
+          },
+          "matchingColumns": [
+            "Content_ID"
+          ],
+          "schema": [
+            {
+              "id": "Content_ID",
+              "displayName": "Content_ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Content_Idea",
+              "displayName": "Content_Idea",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Target_Audience",
+              "displayName": "Target_Audience",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Brand_Tone",
+              "displayName": "Brand_Tone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "LinkedIn_Post",
+              "displayName": "LinkedIn_Post",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "X_Thread",
+              "displayName": "X_Thread",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Instagram_Caption",
+              "displayName": "Instagram_Caption",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Approval_Status",
+              "displayName": "Approval_Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Scheduled_Date",
+              "displayName": "Scheduled_Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Approved_At",
+              "displayName": "Approved_At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        624,
+        272
+      ],
+      "id": "e9742a77-c35f-48b1-884e-c558dc206c97",
+      "name": "Update row in sheet2",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "wLYVzKWHXyAe1RTc",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Schedule_Analyzer1').first().json.chat_id }}",
+        "text": "={{ '✅ Content scheduled successfully!\\n\\nContent ID: ' + $json.Content_ID + '\\nScheduled Date & Time: ' + $json.Scheduled_Date }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        784,
+        272
+      ],
+      "id": "b14aa5d7-93ab-4700-ad88-72c74dab212c",
+      "name": "Send a text message6",
+      "webhookId": "b37cf08d-c2a9-4f34-a5fa-a2024fdaabe9",
+      "credentials": {
+        "telegramApi": {
+          "id": "w2zk5NYrFdf4YkLk",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json;\n\nconst message = String(\n  data.message?.text ?? data.text ?? \"\"\n).trim();\n\n// Format: SCHEDULE 105-1 | 2026-10-20 18:30\nconst match = message.match(\n  /^SCHEDULE\\s+(\\d+-\\d+)\\s*\\|\\s*(\\d{4}-\\d{2}-\\d{2})\\s+(\\d{2}:\\d{2})$/i\n);\n\nif (!match) {\n  throw new Error(\n    \"Invalid format. Use: SCHEDULE 105-1 | 2026-10-20 18:30\"\n  );\n}\n\nconst chat_id =\n  data.message?.chat?.id ??\n  data.chat?.id ??\n  data.chat_id;\n\nif (chat_id === undefined || chat_id === null) {\n  throw new Error(\"Chat ID nahi mili.\");\n}\n\nconst contentId = match[1];\nconst dateStr = match[2]; // 2026-10-20\nconst timeStr = match[3]; // 18:30\n\n// Google Calendar ke liye ISO Start Time\nconst startTime = `${dateStr}T${timeStr}:00`;\n\n// 1 ghante ka duration set karne ke liye End Time\nconst startDate = new Date(`${dateStr}T${timeStr}:00`);\nstartDate.setHours(startDate.getHours() + 1);\nconst hours = String(startDate.getHours()).padStart(2, '0');\nconst minutes = String(startDate.getMinutes()).padStart(2, '0');\nconst endTime = `${dateStr}T${hours}:${minutes}:00`;\n\nreturn [\n  {\n    json: {\n      Content_ID: contentId,\n      Scheduled_Date: `${dateStr} ${timeStr}`,\n      summary: `Content ID: ${contentId} Schedule`,\n      description: `Scheduled via Telegram bot for content ID ${contentId}`,\n      start_time: startTime,\n      end_time: endTime,\n      chat_id: chat_id\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        464,
+        272
+      ],
+      "id": "d427c886-2be5-4aa2-9a10-77c550972df2",
+      "name": "Schedule_Analyzer1"
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "gayatridangi8358@gmail.com",
+          "mode": "list",
+          "cachedResultName": "gayatridangi8358@gmail.com"
+        },
+        "start": "={{ $json.start_time }}",
+        "end": "={{ $json.end_time }}",
+        "additionalFields": {
+          "description": "={{ $json.description }}",
+          "summary": "={{ $json.summary }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        592,
+        432
+      ],
+      "id": "0c777be2-efaa-4252-9b98-a0879bf13d5f",
+      "name": "Create an event",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "edVctMtehituaCRe",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1P6ed9y6YVXBzOrFYoP8E_stORreYXk-_Ipm0XLG-eEg",
+          "mode": "list",
+          "cachedResultName": "Social Media Calendar",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1P6ed9y6YVXBzOrFYoP8E_stORreYXk-_Ipm0XLG-eEg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Calendar",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1P6ed9y6YVXBzOrFYoP8E_stORreYXk-_Ipm0XLG-eEg/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Content_ID": "={{ $(\"Code\").item.json.Content_ID }}",
+            "Target_Audience": "={{ $json.Target_Audience }}",
+            "Content_Idea": "={{ $json.Content_Idea }}",
+            "Brand_Tone": "={{ $json.Brand_Tone }}",
+            "LinkedIn_Post": "={{ $json.LinkedIn_Post }}",
+            "X_Thread": "={{ $json.X_Thread }}",
+            "Instagram_Caption": "={{ $json.Instagram_Caption }}",
+            "Approval_Status": "={{ $json.Approval_Status }}"
+          },
+          "matchingColumns": [
+            "Content_ID"
+          ],
+          "schema": [
+            {
+              "id": "Content_ID",
+              "displayName": "Content_ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Content_Idea",
+              "displayName": "Content_Idea",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Target_Audience",
+              "displayName": "Target_Audience",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Brand_Tone",
+              "displayName": "Brand_Tone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "LinkedIn_Post",
+              "displayName": "LinkedIn_Post",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "X_Thread",
+              "displayName": "X_Thread",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Instagram_Caption",
+              "displayName": "Instagram_Caption",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Approval_Status",
+              "displayName": "Approval_Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Scheduled_Date",
+              "displayName": "Scheduled_Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Approved_At",
+              "displayName": "Approved_At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        848,
+        432
+      ],
+      "id": "46c2b8f0-328d-4ee2-ad05-57c3528ff7f1",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "wLYVzKWHXyAe1RTc",
+          "name": "Google Sheets account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Send a text message2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message2": {
+      "main": [
+        [
+          {
+            "node": "Send a text message3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyzer": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Schedule_Analyzer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule_Analyzer": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Analyzer",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Analyzer",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Schedule_Analyzer1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet2": {
+      "main": [
+        [
+          {
+            "node": "Send a text message6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule_Analyzer1": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create an event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionTimeout": -1,
+    "availableInMCP": false
+  },
+  "versionId": "4bc674c6-d513-4d08-b1e2-2d9b3edb316e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "5b8bb68e771428b2a91195f52a9d9dcdd635c9adf4e4f6774a0dc8ecfe151a1a"
+  },
+  "nodeGroups": [],
+  "id": "JfarwctdWegKwshm",
+  "tags": []
+}
